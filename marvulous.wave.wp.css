@@ -1,0 +1,9 @@
+.wave-panel{
+height:25em;
+width: 100% ;
+position:relative;
+}
+.wave-panel iframe{
+height:100%;
+width:100%;
+}
