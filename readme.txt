@@ -3,9 +3,9 @@ Contributors: signpostmarv
 Tags: google, wave, embed
 Requires at least: 2.8
 Tested up to: 2.8.6
-Stable tag: 1.0
+Stable tag: 1.1
 
-Display your identity from around the metaverse!
+Embed Waves in your posts & pages!
 
 == Description ==
 
@@ -26,6 +26,12 @@ Additionally, “Embed Wave” is extensible, in that new providers can be added
 2. The resulting page with 2 waves embedded.
 
 == ChangeLog ==
+
+1.1 (2009-11-17)
+------------------
+1. Added support for specifying the width of the wave panel.
+2. Added support for alternative content (not using <noscript />, since that would prevent alt content from being displayed if javascript was enabled but the wave embed api failed to load).
+3. Added support for the google wave sandbox.
 
 1.0 (2009-11-11)
 ------------------

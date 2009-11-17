@@ -60,6 +60,7 @@ class Marvulous_Embed_Wave
 	public function add_default_providers($value)
 	{
 		$value['google-wave'] = new Marvulous_Embed_Wave_provider('googlewave.com!w+_idgoeshere_','https://wave.google.com/wave/');
+		$value['google-wave-sandbox'] = new Marvulous_Embed_Wave_provider('wavesandbox.com!w+_idgoeshere_','https://wave.google.com/a/wavesandbox.com/');
 		return $value;
 	}
 	public function deactivate()
@@ -88,23 +89,41 @@ class Marvulous_Embed_Wave
 	{
 		wp_enqueue_script('Marvulous_Embed_Wave');
 	}
-	public function shortcode($atts)
+	public function shortcode($atts,$content='')
 	{
 		extract(shortcode_atts(array(
 			'id' => '',
 			'type'=>'',
-			'height'=>''
+			'height'=>'',
+			'width'=>'',
 		),$atts));
 		$type = trim($type);
 		$id = trim($id);
 		$height = trim($height);
-		if(preg_match('/^\d+(\.[\d]+)?(\%|px|em)$/',$height) == 1)
+		$width = trim($width);
+		$content = trim($content);
+		$_height = false;
+		$_width  = false;
+		$cssunit_regex = '/^\d+(\.[\d]+)?(\%|px|em)$/';
+		if(strlen($content) > 0)
 		{
-			$height = ' style="height:' . esc_attr($height) . '"';
+			$content = '<div class="alt-content">' . htmlentities2($content) . '</div>';
+		}
+		if(preg_match($cssunit_regex,$height) == 1)
+		{
+			$_height = true;
 		}
 		else
 		{
-			$height = '';
+			unset($height);
+		}
+		if(preg_match($cssunit_regex,$width) == 1)
+		{
+			$_width = true;
+		}
+		else
+		{
+			unset($width);
 		}
 		if($id == '')
 		{
@@ -114,13 +133,27 @@ class Marvulous_Embed_Wave
 		{
 			$type = 'google-wave';
 		}
+		$style = '';
+		if($_height != false || $_width != false)
+		{
+			$style = ' style="';
+			if($_height != false)
+			{
+				$style .= 'height:' . esc_attr($height) . ';';
+			}
+			if($_width != false)
+			{
+				$style .= 'width:' . esc_attr($width) . ';';
+			}
+			$style .= '"';
+		}
 		if($this->providers($type) == false)
 		{
 			return;
 		}
 		else
 		{
-			return '<div id="' . esc_attr($id) . '" class="wave-panel ' . esc_attr($type) . '"' . $height . '></div>';
+			return '<div id="' . esc_attr($id) . '" class="wave-panel ' . esc_attr($type) . '"' . $style . '>' . $content . '</div>';
 		}
 	}
 	public function js()

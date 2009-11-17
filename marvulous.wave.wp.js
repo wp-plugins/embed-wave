@@ -45,6 +45,7 @@ marvulous.wave.wp = {
 				wave.loadWave(format.replace(/_idgoeshere_/,this.id));
 				wave.init(this);
 				marvulous.wave.wp._embedded[this.id] = true;
+				jQuery('.wave-panel .alt-content').remove();
 			}
 		}
 	}
