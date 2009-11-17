@@ -3,7 +3,7 @@
 Plugin Name: Embed Wave
 Plugin URI: http://signpostmarv.name/embed-wave/
 Description: Allows multiple waves to be embedded within the same page!
-Version: 1.1
+Version: 1.2
 Author: SignpostMarv Martin
 Author URI: http://signpostmarv.name/
  Copyright 2009 SignpostMarv Martin  (email : embed-wave.wp@signpostmarv.name)
@@ -165,13 +165,13 @@ class Marvulous_Embed_Wave
 			$id_format[] = '\'' . js_escape($label) . '\' : \'' . js_escape($provider->id_format()) . '\'';
 			$WavePanel[] = '\'' . js_escape($label) . '\' : \'' . js_escape($provider->WavePanel()) . '\'';
 		}
-		echo '<script type="text/javascript">/*<![CDATA[*//*',"\n",
-			'marvulous.wave.wp._id_format : {'  , "\n\t",
+		echo '<script type="text/javascript">',"\n",
+			'marvulous.wave.wp[\'_id_format\'] = {'  , "\n\t",
 				implode(',' . "\n\t\t",$id_format) , "\n",'};' , "\n" ,
-			'marvulous.wave.wp._WavePanel : {' , "\n\t",
+			'marvulous.wave.wp[\'_WavePanel\'] = {' , "\n\t",
 				implode(',' . "\n\t\t",$WavePanel) , "\n",'};' , "\n" ,
 			'jQuery(document).ready(marvulous.wave.wp.detect);',"\n",
-			'/*]]>*/</script>',"\n";
+			'</script>',"\n";
 		;
 	}
 }

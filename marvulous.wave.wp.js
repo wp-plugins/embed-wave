@@ -7,12 +7,8 @@ if(marvulous.wave == undefined)
 	marvulous.wave = {};
 }
 marvulous.wave.wp = {
-	_id_format : {
-		'google-wave' : 'googlewave.com!w+_idgoeshere_'
-	},
-	_WavePanel : {
-		'google-wave' : 'https://wave.google.com/wave/'
-	},
+	_id_format : {},
+	_WavePanel : {},
 	_embedded : {},
 	detect : function(){
 		jQuery('.wave-panel').each(marvulous.wave.wp._embed);
@@ -50,4 +46,3 @@ marvulous.wave.wp = {
 		}
 	}
 }
-jQuery(document).ready(marvulous.wave.wp.detect);
