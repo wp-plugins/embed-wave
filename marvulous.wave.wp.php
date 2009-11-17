@@ -3,7 +3,7 @@
 Plugin Name: Embed Wave
 Plugin URI: http://signpostmarv.name/embed-wave/
 Description: Allows multiple waves to be embedded within the same page!
-Version: 1.0
+Version: 1.1
 Author: SignpostMarv Martin
 Author URI: http://signpostmarv.name/
  Copyright 2009 SignpostMarv Martin  (email : embed-wave.wp@signpostmarv.name)
