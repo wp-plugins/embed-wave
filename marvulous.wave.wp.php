@@ -3,7 +3,7 @@
 Plugin Name: Embed Wave
 Plugin URI: http://signpostmarv.name/embed-wave/
 Description: Allows multiple waves to be embedded within the same page!
-Version: 1.2
+Version: 1.3
 Author: SignpostMarv Martin
 Author URI: http://signpostmarv.name/
  Copyright 2009 SignpostMarv Martin  (email : embed-wave.wp@signpostmarv.name)
@@ -174,10 +174,55 @@ class Marvulous_Embed_Wave
 			'</script>',"\n";
 		;
 	}
+	public function widgets_init()
+	{
+		return register_widget('Marvulous_Embed_Wave_Widget');
+	}
+}
+class Marvulous_Embed_Wave_Widget extends WP_Widget
+{
+	function Marvulous_Embed_Wave_Widget( $id_base = false, $widget_options = array(), $control_options = array() )
+	{
+		parent::WP_Widget($id_base,'Embed Wave',$widget_options,$control_options);
+	}
+    public function widget($args, $instance) {
+        extract( $args );
+		$_Marvulous_Embed_Wave = new Marvulous_Embed_Wave;
+		$content = isset($instance['content']) ? $instance['content'] : null;
+		if(isset($instance['content']))
+		{
+			unset($instance['content']);
+		}
+		$instance['id'] = 'wp_sidebar::' . $instance['id'];
+		echo $before_widget,$_Marvulous_Embed_Wave->shortcode($instance,$content),$after_widget;
+    }
+	function update($new, $old) {
+		return $new;
+	}
+	public function form($instance)
+	{
+		$providers = apply_filters('Marvulous_Embed_Wave::provider',array());
+		$select_this_provider = empty($instance) ? key($providers) : $instance['type'];
+		$value = empty($instance) ? '' : ' value="' . esc_attr($instance['id']) . '"';
+?>
+		<p><label for="<?php echo $this->get_field_id('id'); ?>">Wave ID: </label><input type="text" id="<?php echo $this->get_field_id('id'); ?>" name="<?php echo $this->get_field_name('id'); ?>"<?php echo $value; ?> /></p>
+		<p><label for="<?php echo $this->get_field_id('type'); ?>">Provider: </label><select id="<?php echo $this->get_field_id('type'); ?>" name="<?php echo $this->get_field_name('type'); ?>">
+<?php
+		foreach(array_keys($providers) as $provider)
+		{
+?>
+			<option value="<?php echo esc_attr($provider); ?>"<?php if(empty($instance) === true && $provider === $select_this_provider){?> selected="selected"<?php }?> ><?php echo htmlentities2(str_replace(array('-','_'),' ',$provider)); ?></option>
+<?php
+		}
+?>
+		</select></p>
+<?php
+	}
 }
 $Marvulous_Embed_Wave = new Marvulous_Embed_Wave;
 add_filter('Marvulous_Embed_Wave::provider',array($Marvulous_Embed_Wave,'add_default_providers'));
 register_activation_hook(__FILE__,array($Marvulous_Embed_Wave,'activate'));
 register_deactivation_hook(__FILE__,array($Marvulous_Embed_Wave,'deactivate'));
 add_action('plugins_loaded',array($Marvulous_Embed_Wave,'plugins_loaded'));
+add_action('widgets_init',array($Marvulous_Embed_Wave,'widgets_init'));
 ?>

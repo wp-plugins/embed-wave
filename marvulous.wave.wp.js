@@ -38,7 +38,12 @@ marvulous.wave.wp = {
 			{
 				var wave = new WavePanel(marvulous.wave.wp._WavePanel[classes[i]]);
 				wave.setUIConfig('white','black','Arial','13px');
-				wave.loadWave(format.replace(/_idgoeshere_/,this.id));
+				var id = this.id;
+				if(id.substr(0,12) == 'wp_sidebar::')
+				{
+					id = id.substr(12);
+				}
+				wave.loadWave(format.replace(/_idgoeshere_/,id));
 				wave.init(this);
 				marvulous.wave.wp._embedded[this.id] = true;
 				jQuery('.wave-panel .alt-content').remove();

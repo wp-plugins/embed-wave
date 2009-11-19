@@ -3,7 +3,7 @@ Contributors: signpostmarv
 Tags: google, wave, embed
 Requires at least: 2.8
 Tested up to: 2.8.6
-Stable tag: 1.2
+Stable tag: 1.3
 
 Embed Waves in your posts & pages!
 
@@ -25,8 +25,14 @@ Additionally, “Embed Wave” is extensible, in that new providers can be added
 
 1. Creating a page with multiple waves using shortcodes.
 2. The resulting page with 2 waves embedded.
+3. Adding a wave into the sidebar.
+4. 3 waves on a single page, 1 in two places at once!
 
 == ChangeLog ==
+
+1.3 (2009-11-19)
+------------------
+1. Added support for Widgets.
 
 1.2 (2009-11-17)
 ------------------
